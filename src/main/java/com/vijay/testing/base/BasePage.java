@@ -5,9 +5,10 @@ import org.openqa.selenium.support.PageFactory;
 
 public class BasePage {
 
+    // WebDriver instance accessible to child page classes
     protected WebDriver driver;
 
-    // Constructor
+    // Constructor to initialize the driver and PageFactory elements
     public BasePage(WebDriver driver) {
         this.driver = driver;
 
