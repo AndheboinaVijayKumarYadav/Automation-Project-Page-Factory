@@ -1,6 +1,7 @@
 package com.vijay.testing.pages;
 
 import com.vijay.testing.base.BasePage;
+import com.vijay.testing.driver.DriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -26,5 +27,10 @@ public class HomePage extends BasePage {
 
     public boolean isSignupLoginDisplayed(){
         return signupLoginButton.isDisplayed();
+    }
+
+    public LoginPage navigateToLoginPage(){
+        clickElement(signupLoginButton);
+        return new LoginPage(DriverManager.getDriver());
     }
 }
