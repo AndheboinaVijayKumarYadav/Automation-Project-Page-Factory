@@ -7,16 +7,22 @@ import com.vijay.testing.pages.HomePage;
 import com.vijay.testing.pages.LoginPage;
 import com.vijay.testing.utils.PropertyReader;
 import jdk.jfr.Description;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.net.Priority;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
 public class RegisterTest extends BaseTest {
+
+    public static final Logger logger = LogManager.getLogger(RegisterTest.class);
 
 
     @Description("Verify User Registration")
     @Test(priority = 1, groups = {"regression","sanity"})
-    public void testUserRegistration(){
+    public void testUserRegistration() throws InterruptedException {
 
         String url = PropertyReader.readKey("url");
 
@@ -32,17 +38,32 @@ public class RegisterTest extends BaseTest {
 
         //Initialize LoginPage object
         LoginPage loginPage = homePage.navigateToLoginPage();
+        logger.info("Navigated to Login page");
 
-        String ActualUserInputText = loginPage.newUserText();
-        String ExpectedUserInputText = PropertyReader.readKey("userInputText");
+        String actualLoginUrl = loginPage.getUrl(DriverManager.getDriver());
+        String expectedLoginUrl = PropertyReader.readKey("login-url");
+        assertThat(actualLoginUrl).overridingErrorMessage("Actual Login Url is not matching with Expected").isEqualTo(expectedLoginUrl);
 
-        Assert.assertEquals(ActualUserInputText,ExpectedUserInputText,"Actual and Expected User Input Text do not match");
+        String actualUserInputText = loginPage.newUserText();
+        String expectedUserInputText = PropertyReader.readKey("userInputText");
+
+//        Assert.assertEquals(ActualUserInputText,ExpectedUserInputText,"Actual and Expected User Input Text do not match");
+        assertThat(actualUserInputText).overridingErrorMessage("Actual Input Text is not matching with Expected").isEqualTo(expectedUserInputText);
+
 
         String userName = PropertyReader.readKey("username");
-        String userEmail = PropertyReader.readKey("useremail");
+        String userEmail = PropertyReader.readKey("user-email");
 
         AccountPage accountPage = loginPage.createAccountWithNewUser(userName,userEmail);
+        logger.info("Navigated to Account Page");
 
+        String actualSignUpUrl = accountPage.getUrl(DriverManager.getDriver());
+        System.out.println(actualSignUpUrl);
+        String expectedSingUpUrl = PropertyReader.readKey("signUp-url");
+        System.out.println(expectedSingUpUrl);
+        assertThat(actualSignUpUrl).overridingErrorMessage("Actual SignUp Url is not matching with Expected Url").isEqualTo(expectedSingUpUrl);
+
+        accountPage.registeringAccountWithUserDetails();
     }
 
 }

@@ -39,5 +39,9 @@ public class BasePage {
         return element.getText();
     }
 
+    public String getUrl(WebDriver driver){
+        return driver.getCurrentUrl();
+    }
+
 
 }
