@@ -1,12 +1,9 @@
 package com.vijay.testing.pages;
 
 import com.vijay.testing.base.BasePage;
-import com.vijay.testing.utils.PropertyReader;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-
-import static com.vijay.testing.utils.DropDownUtility.*;
 
 public class AccountPage extends BasePage {
 
@@ -14,26 +11,33 @@ public class AccountPage extends BasePage {
         super(driver);
     }
 
-    @FindBy(id = "password")
-    private WebElement passwordInputField;
+    @FindBy(xpath = "//b[text()='Account Created!']")
+    private WebElement accountTextField;
 
-    @FindBy(id = "days")
-    private WebElement dayDropDown;
+    @FindBy(xpath = "//a[text()='Continue']")
+    private WebElement continueButton;
 
-    @FindBy(id = "months")
-    private WebElement monthsDropDown;
+    @FindBy(xpath = "//a[contains(text(),'Logged')]")
+    private WebElement loggedInField;
 
-    @FindBy(id = "years")
-    private WebElement yearsDropDown;
+    @FindBy(xpath = "//a[contains(text(),'Delete')]")
+    private WebElement deleteField;
 
+    public String getAccCreatedMessage(){
+        return getText(accountTextField);
+    }
 
-    public void registeringAccountWithUserDetails(){
+    public String getUserLoginMessage(){
+        return getText(loggedInField);
+    }
 
-        enterText(passwordInputField, PropertyReader.readKey("user-password"));
+    public void clickOnContinue(){
+        clickElement(continueButton);
+    }
 
-        selectByValue(dayDropDown,"6");
-        selectByIndex(monthsDropDown,4);
-        selectByText(yearsDropDown,"2006");
+    public DeletePage deleteUserAccount(WebDriver driver){
+        clickElement(deleteField);
 
+        return new DeletePage(driver);
     }
 }

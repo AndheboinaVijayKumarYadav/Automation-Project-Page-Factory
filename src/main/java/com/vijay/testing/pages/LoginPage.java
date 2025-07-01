@@ -1,7 +1,6 @@
 package com.vijay.testing.pages;
 
 import com.vijay.testing.base.BasePage;
-import com.vijay.testing.driver.DriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -29,14 +28,14 @@ public class LoginPage extends BasePage {
         return getText(newUser);
     }
 
-    public AccountPage createAccountWithNewUser(String username, String email){
+    public RegisterPage createAccountWithNewUser(String username, String email, WebDriver driver){
 
         enterText(newUserNameInputField,username);
         enterText(newUserEmailInputField,email);
 
         clickElement(signupButton);
 
-        return new AccountPage(DriverManager.getDriver());
+        return new RegisterPage(driver);
     }
 
 }

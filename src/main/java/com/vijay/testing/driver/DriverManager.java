@@ -47,7 +47,7 @@ public class DriverManager {
             case "chrome":
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.addArguments("--start-maximized");
-                chromeOptions.addArguments("--headless");
+//                chromeOptions.addArguments("--headless");
                 webDriver = new ChromeDriver(chromeOptions);
                 logger.info("Chrome browser initialized ");
                 break;

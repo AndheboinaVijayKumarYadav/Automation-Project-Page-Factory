@@ -3,7 +3,7 @@
 <suite name="All Test Suite">
     <test name="Sample Test">
         <classes>
-            <class name="com.vijay.testing.tests.RegisterTest"/>
+            <class name="com.vijay.testing.tests.RegisterAndDeletionTest"/>
         </classes>
     </test>
 </suite>
